@@ -26,6 +26,48 @@
  *   chaiTapriRevenue(0)
  *   // => { totalChai: 0, totalRevenue: 0 }
  */
+// export function chaiTapriRevenue(customers) {
+//   // Your code here
+//   if (customers <= 0 || !Number.isInteger(customers)) {
+//     return { totalChai: 0, totalRevenue: 0 };
+//   }
+
+//   let totalCuttingChai = 0;
+//   let totalAdrakChai = 0;
+
+//   let totalRevenue = 0;
+
+//   for (let i = 0; i < customers; i++) {
+//     if (i % 3 === 0) {
+//       totalAdrakChai = totalAdrakChai + 15;
+//       console.log(totalAdrakChai);
+//     } else {
+//       totalCuttingChai = totalCuttingChai + 10;
+//       console.log(totalCuttingChai);
+//     }
+//   }
+
+//   totalRevenue = totalAdrakChai + totalCuttingChai;
+
+//   return {
+//     totalChai: customers,
+//     totalRevenue: totalRevenue,
+//   };
+// }
+
 export function chaiTapriRevenue(customers) {
   // Your code here
+  if (customers <= 0 || !Number.isInteger(customers)) {
+    return { totalChai: 0, totalRevenue: 0 };
+  }
+
+  const adrakCount = Math.floor(customers / 3);
+  const cuttingCount = customers - adrakCount;
+
+  const totalRevenue = adrakCount * 15 + cuttingCount * 10;
+
+  return {
+    totalChai: customers,
+    totalRevenue: totalRevenue,
+  };
 }

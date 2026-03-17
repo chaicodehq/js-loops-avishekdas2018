@@ -45,5 +45,58 @@
  *   // => [{ name: "Rahul", trainNumber: "12345", class: "sleeper", status: "confirmed" }]
  */
 export function railwayReservation(passengers, trains) {
-  // Your code here
+  if (
+    !Array.isArray(passengers) ||
+    !Array.isArray(trains) ||
+    passengers.length === 0 ||
+    trains.length === 0
+  ) {
+    return [];
+  }
+
+  const results = [];
+
+  for (const passenger of passengers) {
+    let train = null;
+    for (const t of trains) {
+      if (t.trainNumber === passenger.trainNumber) {
+        train = t;
+        break;
+      }
+    }
+
+    if (!train) {
+      results.push({
+        name: passenger.name,
+        trainNumber: passenger.trainNumber,
+        class: null,
+        status: "train_not_found",
+      });
+    } else if (train.seats[passenger.preferred] > 0) {
+      train.seats[passenger.preferred]--;
+      results.push({
+        name: passenger.name,
+        trainNumber: passenger.trainNumber,
+        class: passenger.preferred,
+        status: "confirmed",
+      });
+    } else if (train.seats[passenger.fallback] > 0) {
+      train.seats[passenger.fallback]--;
+      results.push({
+        name: passenger.name,
+        trainNumber: passenger.trainNumber,
+        class: passenger.fallback,
+        status: "confirmed",
+      });
+    } else {
+      results.push({
+        name: passenger.name,
+        trainNumber: passenger.trainNumber,
+        class: passenger.preferred,
+        status: "waitlisted",
+      });
+    }
+  }
+
+  return results;
 }

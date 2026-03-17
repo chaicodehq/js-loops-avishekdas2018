@@ -37,4 +37,33 @@
  */
 export function rangoli(n) {
   // Your code here
+  if (!Number.isInteger(n) || n === 0 || Number.isNaN(n) || n < 0) {
+    return [];
+  }
+
+  const diamondPattern = [];
+  const totalRow = 2 * n - 1;
+
+  for (let i = 1; i <= totalRow; i++) {
+    let rowStr = "";
+
+    const starCount = i <= n ? i : 2 * n - i;
+    const spaceCount = n - starCount;
+
+    for (let s = 0; s < spaceCount; s++) {
+      rowStr += " ";
+    }
+
+    for (let j = 1; j <= starCount; j++) {
+      rowStr += "*";
+
+      if (j < starCount) {
+        rowStr += " ";
+      }
+    }
+
+    diamondPattern.push(rowStr);
+  }
+
+  return diamondPattern;
 }
